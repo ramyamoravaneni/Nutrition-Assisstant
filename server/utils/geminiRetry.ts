@@ -22,10 +22,24 @@ export async function withRetry<T>(
       attempt++;
       const status = error?.status || error?.code || error?.error?.code;
       const message = error?.message || '';
+      const causeMessage = error?.cause?.message || error?.cause?.name || String(error?.cause || '');
       
       const isTransient = 
         status === 503 || 
         status === 429 || 
+        error?.name === 'TypeError' ||
+        message.includes('fetch failed') ||
+        message.includes('Timeout') ||
+        message.includes('timeout') ||
+        message.includes('socket hang up') ||
+        message.includes('ECONNRESET') ||
+        message.includes('ETIMEDOUT') ||
+        message.includes('EAI_AGAIN') ||
+        message.includes('ENOTFOUND') ||
+        message.includes('ECONNREFUSED') ||
+        causeMessage.includes('Timeout') ||
+        causeMessage.includes('timeout') ||
+        causeMessage.includes('fetch failed') ||
         message.includes('experiencing high demand') ||
         message.includes('UNAVAILABLE') ||
         message.includes('RESOURCE_EXHAUSTED') ||
