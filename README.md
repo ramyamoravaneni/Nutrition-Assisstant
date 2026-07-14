@@ -1,223 +1,560 @@
-# Nutrition Assistant 🥦🍎
+# 🥦🍎 Nutrition Assistant
 
-Nutrition Assistant is a medical-grade, production-ready full-stack web application developed using the MERN Stack (**MongoDB**, **Express**, **React**, **Node**), styled with high-fidelity utility classes (**Tailwind CSS**), and driven by **Google Gemini 3.5 Flash AI** intelligence.
+Nutrition Assistant is a production-ready, AI-powered full-stack web application developed using the **MERN Stack (MongoDB, Express.js, React.js, Node.js)**. The application helps users generate personalized nutrition and diet plans based on their age, height, weight, BMI, activity level, and health goals.
 
-The application calculates Basal Metabolic Rates (BMR) and daily energy targets via clinical Mifflin-St Jeor metabolic equations, then constructs personalized nutrition roadmaps detailing meal timings, macro partitions, clean foods, and step targets.
-
----
-
-## 🌟 Key Features
-
-1. **Precision Somatic Profiling & BMR Calculations**:
-   - Computes Basal Metabolic Rate dynamically based on gender, height, weight, age, and physical activity multipliers.
-2. **Deterministic & AI-Powered Nutrition Synthesis**:
-   - Integrates Google Gemini AI (`gemini-2.5` or modern fallback engines) to design meal items, specific clock schedules, and active step limits.
-   - Includes a deterministic fallback matrix to guarantee operations even if the API credentials are unset.
-3. **Smart AI Counsel Chatbot**:
-   - Conversational dietitian counselor ("NutriBot") embedded directly on the user dashboard.
-4. **Dual-Adapter Storage Engine**:
-   - Intelligently connects to a live MongoDB Atlas database if `MONGODB_URI` is provided.
-   - Gracefully falls back to a robust file-based local JSON database (`data/localdb.json`) for instant sandbox evaluation.
-5. **Role-Based Command Dashboard**:
-   - **Administrators**: Complete system oversight, auditing, and control panels to delete accounts and wipe historical plan logs.
-   - **Users**: High-fidelity dashboard displaying real-time BMI dials, activity gauges, plan calendars, and interactive meal builders.
-6. **Robust JWT Verification Gateways**:
-   - Full-stack state management securing server routes and client transitions.
+The system follows the **MVC (Model-View-Controller)** architecture and integrates **Google Gemini AI** to generate intelligent nutrition recommendations. It provides secure authentication, role-based access, responsive design, and real-time personalized diet suggestions.
 
 ---
 
-## 📂 Project Architecture
+# 📌 Project Overview
 
-The backend adheres strictly to the **MVC (Model-View-Controller)** separation of concerns:
+The Nutrition Assistant enables users to:
+
+- Register and Login securely
+- Calculate BMI automatically
+- Generate personalized diet plans
+- Receive AI-powered nutrition suggestions
+- Track nutrition history
+- View previous diet recommendations
+- Manage user profile
+- Access Admin Dashboard
+- Store all data securely in MongoDB
+
+---
+
+# 🚀 Technologies Used
+
+## Frontend
+
+- React.js (Vite)
+- React Router DOM
+- Axios
+- Bootstrap 5
+- Tailwind CSS
+- CSS3
+
+## Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+- bcryptjs
+- dotenv
+- cors
+
+## AI Integration
+
+- Google Gemini AI (Gemini 2.5 Flash)
+
+## Development Tools
+
+- VS Code
+- Git
+- GitHub
+- Postman
+- MongoDB Atlas
+
+---
+
+# ✨ Key Features
+
+## User Features
+
+- User Registration
+- User Login
+- JWT Authentication
+- Update Profile
+- Create Personalized Diet Plan
+- BMI Calculation
+- Calorie Recommendation
+- Protein Recommendation
+- Carbohydrate Recommendation
+- Meal Timing Recommendation
+- Walking Recommendation
+- Healthy Food Suggestions
+- Nutrition History
+- AI Nutrition Chatbot (NutriBot)
+
+---
+
+## Admin Features
+
+- Admin Login
+- View All Users
+- View All Suggestions
+- Delete Suggestions
+- Manage Users
+- Monitor User Activities
+
+---
+
+## AI Features
+
+- Google Gemini AI Integration
+- Personalized Nutrition Suggestions
+- AI Chatbot
+- Deterministic Fallback Logic
+- Intelligent Meal Planning
+
+---
+
+# 🏗 Project Architecture
+
+The project follows the **MVC (Model-View-Controller)** Architecture.
 
 ```
-├── /server.ts                      # Central HTTP entry point & Vite asset proxy middleware
-├── /server/
-│   ├── /controllers/               # MVC Controllers (handling HTTP endpoints & business logic)
-│   │   ├── userController.ts       # Registration, login, profile updates, and admin management
-│   │   ├── suggestionController.ts # Generating, querying, and purging nutrition plans
-│   │   └── chatController.ts       # Conversational chatbot proxy handler
-│   ├── /db/
-│   │   ├── config.ts               # Database connection state manager (Atlas check)
-│   │   └── localDb.ts              # Local JSON database adapter
-│   ├── /middlewares/
-│   │   └── authMiddleware.ts       # JWT token verification & role check gates
-│   ├── /models/
-│   │   ├── User.ts                 # Mongoose User profiling schema
-│   │   └── Suggestion.ts           # Mongoose Nutrition Plan suggestions schema
-│   └── /utils/
-│       └── suggestNutrition.ts     # Mifflin-St Jeor engine & Gemini AI prompt engineers
+Presentation Layer
+│
+├── React Frontend
+│
+Business Layer
+│
+├── Controllers
+├── Authentication
+├── Nutrition Logic
+│
+Data Layer
+│
+├── MongoDB
+└── Mongoose Models
 ```
 
 ---
 
-## ⚙️ Environment Configuration (`.env`)
+# 📂 Backend Folder Structure
 
-Create a `.env` file in the root directory:
+```
+server/
+
+controllers/
+│
+├── userController.js
+└── suggestionController.js
+
+db/
+│
+└── config.js
+
+middlewares/
+│
+└── authMiddleware.js
+
+models/
+│
+├── User.js
+└── Suggestion.js
+
+routes/
+│
+├── userRoute.js
+└── suggestionRoute.js
+
+utils/
+│
+└── suggestNutrition.js
+
+server.js
+
+.env
+```
+
+---
+
+# 📂 Frontend Folder Structure
+
+```
+client/
+
+src/
+
+assets/
+
+components/
+│
+├── Home.jsx
+└── LNavbar.jsx
+
+pages/
+│
+├── LandingPage.jsx
+├── Login.jsx
+├── Register.jsx
+
+Plans/
+│
+├── NewPlan.jsx
+├── NewSuggestion.jsx
+└── SuggestedNutrition.jsx
+
+User/
+│
+├── UserData.jsx
+└── UnavBar.jsx
+
+App.jsx
+App.css
+main.jsx
+index.css
+```
+
+---
+
+# 👥 User Roles
+
+## User
+
+- Register
+- Login
+- Update Profile
+- Create Diet Plan
+- View Suggestions
+- Track Nutrition History
+
+---
+
+## Admin
+
+- Login
+- View Users
+- View Suggestions
+- Delete Suggestions
+- Manage Users
+
+---
+
+# 🗄 Database Collections
+
+## User Collection
+
+- name
+- email
+- password
+- age
+- gender
+- height
+- weight
+- activityLevel
+- role
+- createdAt
+
+---
+
+## Suggestion Collection
+
+- userId
+- userName
+- age
+- height
+- weight
+- bmi
+- suggestion
+- foods[]
+- timing
+- walk
+- calorieIntake
+- carbohydrateNeeds
+- proteinNeeds
+- weightGain
+- date
+
+---
+
+# 🔄 User Flow
+
+```
+Landing Page
+
+↓
+
+Register / Login
+
+↓
+
+Dashboard
+
+↓
+
+Create Nutrition Plan
+
+↓
+
+Generate AI Suggestion
+
+↓
+
+Store in MongoDB
+
+↓
+
+Display Nutrition Suggestion
+
+↓
+
+Admin Dashboard
+```
+
+---
+
+# 🔗 Entity Relationship
+
+```
+One User
+
+↓
+
+Many Suggestions
+
+Suggestion references User using ObjectId.
+```
+
+---
+
+# 📡 REST API Endpoints
+
+## Authentication
+
+POST
+
+```
+/api/users/register
+```
+
+POST
+
+```
+/api/users/login
+```
+
+GET
+
+```
+/api/users/profile
+```
+
+PUT
+
+```
+/api/users/profile
+```
+
+---
+
+## Nutrition APIs
+
+POST
+
+```
+/api/suggestions/create
+```
+
+GET
+
+```
+/api/suggestions/user/:id
+```
+
+GET
+
+```
+/api/suggestions/all
+```
+
+DELETE
+
+```
+/api/suggestions/:id
+```
+
+---
+
+# 🧠 Nutrition Recommendation Logic
+
+The application automatically calculates:
+
+- BMI
+- Basal Metabolic Rate (BMR)
+- Daily Calories
+- Protein Requirement
+- Carbohydrate Requirement
+- Healthy Foods
+- Meal Timing
+- Walking Recommendation
+- Weight Goal Recommendation
+
+---
+
+# 🔐 Security Features
+
+- JWT Authentication
+- Password Hashing using bcryptjs
+- Protected Routes
+- Environment Variables
+- Input Validation
+- Error Handling
+- Role-Based Authorization
+
+---
+
+# 🎨 User Interface
+
+The application includes:
+
+- Landing Page
+- Register Page
+- Login Page
+- Home Dashboard
+- Create Diet Plan
+- Suggested Nutrition
+- User Profile
+- Admin Dashboard
+
+---
+
+# 📱 UI Design
+
+- Responsive Design
+- Bootstrap Components
+- Tailwind CSS
+- Cards
+- Navbar
+- Forms
+- Tables
+- Alerts
+- Toast Notifications
+- Loading Spinner
+
+---
+
+# ⚙️ Environment Configuration
+
+Create a **.env** file.
 
 ```env
-# Server details
 PORT=3000
 
-# Security secrets
-JWT_SECRET="YourSecretSignatureKey"
+JWT_SECRET=YourSecretKey
 
-# MongoDB Credentials (if left empty, the app automatically launches on Local JSON Storage)
-MONGODB_URI="mongodb+srv://..."
+MONGODB_URI=YourMongoDBAtlasConnectionString
 
-# Gemini API Credentials (injected automatically in AI Studio workspace)
-GEMINI_API_KEY="YourGoogleGeminiApiKey"
+GEMINI_API_KEY=YourGoogleGeminiApiKey
 ```
 
 ---
 
-## 🚀 Commands
+# 🚀 Installation
 
-- **Development Mode**:
-  ```bash
-  npm run dev
-  ```
-- **Production Build & Bundling**:
-  ```bash
-  npm run build
-  ```
-- **Launch Compiled Application**:
-  ```bash
-  npm run start
-  ```
+Clone the repository
+
+```bash
+git clone https://github.com/yourusername/NutritionAssistant.git
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+Frontend
+
+```bash
+cd client
+
+npm install
+
+npm run dev
+```
+
+Backend
+
+```bash
+cd server
+
+npm install
+
+npm start
+```
 
 ---
 
-## 🧪 Postman API Testing Collection
+# 📮 Postman APIs
 
-Import this raw JSON schema into Postman to instantly test all REST endpoints:
+The project includes a complete Postman Collection for testing:
 
-```json
-{
-  "info": {
-    "name": "Nutrition Assistant API",
-    "description": "Postman Collection to test MVC controllers, JWT validation, and admin features.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "User Auth",
-      "item": [
-        {
-          "name": "Register User Profile",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Sowjanya Mulamuri\",\n  \"email\": \"mulamurisowjanya31@gmail.com\",\n  \"password\": \"sowjanya123\",\n  \"age\": 26,\n  \"gender\": \"Female\",\n  \"height\": 164,\n  \"weight\": 62,\n  \"activityLevel\": \"Moderately Active\"\n}"
-            },
-            "url": { "raw": "http://localhost:3000/api/users/register" }
-          }
-        },
-        {
-          "name": "Login User Account",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"mulamurisowjanya31@gmail.com\",\n  \"password\": \"sowjanya123\"\n}"
-            },
-            "url": { "raw": "http://localhost:3000/api/users/login" }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Nutrition Calculations",
-      "item": [
-        {
-          "name": "Calculate & Create AI Plan",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer <YOUR_JWT_TOKEN>" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"age\": 26,\n  \"height\": 164,\n  \"weight\": 62,\n  \"activityLevel\": \"Moderately Active\",\n  \"weightGoal\": \"Weight Loss\"\n}"
-            },
-            "url": { "raw": "http://localhost:3000/api/suggestions/create" }
-          }
-        },
-        {
-          "name": "Get User Plan History",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer <YOUR_JWT_TOKEN>" }
-            ],
-            "url": { "raw": "http://localhost:3000/api/suggestions/user/<USER_ID>" }
-          }
-        },
-        {
-          "name": "Get Plan Details By ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer <YOUR_JWT_TOKEN>" }
-            ],
-            "url": { "raw": "http://localhost:3000/api/suggestions/<PLAN_ID>" }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Diet Counselor Chatbot",
-      "item": [
-        {
-          "name": "Ask Counselor NutriBot",
-          "request": {
-            "method": "POST",
-            "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer <YOUR_JWT_TOKEN>" }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"message\": \"What is a good protein source for vegans?\",\n  \"history\": []\n}"
-            },
-            "url": { "raw": "http://localhost:3000/api/chat" }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Administrative Controls",
-      "item": [
-        {
-          "name": "Get All Users Directory",
-          "request": {
-            "method": "GET",
-            "header": [
-              { "key": "Authorization", "value": "Bearer <ADMIN_JWT_TOKEN>" }
-            ],
-            "url": { "raw": "http://localhost:3000/api/users/all" }
-          }
-        },
-        {
-          "name": "Delete User Account",
-          "request": {
-            "method": "DELETE",
-            "header": [
-              { "key": "Authorization", "value": "Bearer <ADMIN_JWT_TOKEN>" }
-            ],
-            "url": { "raw": "http://localhost:3000/api/users/<USER_ID>" }
-          }
-        }
-      ]
-    }
-  ]
-}
-```
+- User Registration
+- User Login
+- Profile APIs
+- Nutrition Suggestion APIs
+- Admin APIs
+- AI Chat APIs
+
+---
+
+# 🤖 AI Integration
+
+The application integrates **Google Gemini AI** for:
+
+- Personalized Diet Planning
+- Meal Suggestions
+- Nutrition Counseling
+- Smart Chatbot (NutriBot)
+- AI-powered Health Recommendations
+
+If Gemini API is unavailable, the application automatically switches to a deterministic recommendation engine.
+
+---
+
+# 🌐 Deployment
+
+The application is designed to be deployed on cloud platforms.
+
+Supported deployment options:
+
+- Vercel (Frontend)
+- Render (Backend)
+- Railway
+- MongoDB Atlas
+- Netlify
+- AWS
+- Azure
+- Google Cloud Platform
+
+The application is fully dynamic and accessible from any laptop, desktop, tablet, or mobile device through the deployed public URL.
+
+---
+
+# 📷 Project Screens
+
+- Landing Page
+- Register Page
+- Login Page
+- Home Dashboard
+- Create Diet Plan
+- Suggested Nutrition
+- Admin Dashboard
+
+---
+
+# 👨‍💻 Team Members
+
+- *Vikas Aakula*
+- *Deva Raju P*
+- *Mulamuri Sowjanya*
+- *Moravaneni Ramya*
+- *Rajigari Tejasree*
+
+---
+
+# 📄 License
+
+This project was developed for academic and educational purposes as a Full Stack MERN application demonstrating modern web development, AI integration, secure authentication, and cloud-based deployment.
+
+---
+
+#Thank You
+
+**Nutrition Assistant**
+
+AI-Powered Personalized Nutrition & Diet Recommendation System built with the MERN Stack and Google Gemini AI.
